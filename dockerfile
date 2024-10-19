@@ -32,6 +32,9 @@ RUN echo "Match User sftp_user" >> /etc/ssh/sshd_config && \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Set the volume
+VOLUME /mnt/sftp_server
+
 # Expose SSH port
 EXPOSE 22
 

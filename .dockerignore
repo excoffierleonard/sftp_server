@@ -1,3 +1,4 @@
-.env
-.gitingore
-.git
+.gitignore
+README.md
+compose.yaml
+LICENSE
