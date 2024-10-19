@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:stable-slim
 
 # Set the envs
 ENV SFTP_USER_PASSWORD=""
