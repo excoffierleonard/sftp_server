@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#TODO: Maybe add a persistence to the generated password, might cause security risk.
+
 # Function to generate a random password
 generate_random_password() {
     openssl rand -base64 16
