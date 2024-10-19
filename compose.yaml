@@ -15,5 +15,5 @@ volumes:
     name: sftp_server
 
 networks:
-  minecraftserver:
+  sftp_server:
     name: sftp_server
