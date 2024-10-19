@@ -1,6 +1,7 @@
 services:
   sftp_server:
     image: git.jisoonet.com/el/sftp_server
+    container_name: sftp_server
     ports:
       - "2222:22"
     restart: unless-stopped
