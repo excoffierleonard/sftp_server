@@ -7,8 +7,8 @@ services:
     ports:
       - "${SFTP_SERVER_PORT:-22}:22"
     volumes:
-      - sftp_server:/mnt/sftp_server
-    restart: unless-stopped
+      - ${SFTP_SERVER_FOLDER:-sftp_server}:/mnt/sftp_server
+    restart: on-failure:5
 
 volumes:
   sftp_server:

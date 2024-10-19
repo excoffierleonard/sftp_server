@@ -5,7 +5,7 @@ ENV SFTP_USER_PASSWORD=""
 
 # Install OpenSSH server
 RUN apt-get update && \
-    apt-get install -y openssh-server && \
+    apt-get install -y openssh-server openssl && \
     apt-get clean
 
 # Create the necessary directory for privilege separation
