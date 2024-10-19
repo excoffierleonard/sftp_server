@@ -12,16 +12,15 @@ RUN mkdir -p /run/sshd
 RUN useradd -m sftpuser && \
     echo "sftpuser:password" | chpasswd
 
-# Create a directory for SFTP files
-RUN mkdir -p /home/sftpuser/uploads && \
-    chown root:root /home/sftpuser && \
-    chmod 755 /home/sftpuser && \
-    chown sftpuser:sftpuser /home/sftpuser/uploads
+# Create a directory inside /mnt for the sftpuser
+RUN mkdir -p /mnt/sftp_server && \
+    chown sftpuser:sftpuser /mnt/sftp_server && \
+    chmod 700 /mnt/sftp_server
 
 # Update sshd_config to allow only SFTP
 RUN echo "Match User sftpuser" >> /etc/ssh/sshd_config && \
     echo "    ForceCommand internal-sftp" >> /etc/ssh/sshd_config && \
-    echo "    ChrootDirectory /home/sftpuser" >> /etc/ssh/sshd_config && \
+    echo "    ChrootDirectory /mnt" >> /etc/ssh/sshd_config && \
     echo "    PermitTunnel no" >> /etc/ssh/sshd_config && \
     echo "    AllowAgentForwarding no" >> /etc/ssh/sshd_config && \
     echo "    AllowTcpForwarding no" >> /etc/ssh/sshd_config && \
