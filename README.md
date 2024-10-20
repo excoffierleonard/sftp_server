@@ -70,7 +70,7 @@ Create a `compose.yaml` file with the following content, you can find a template
 services:
   sftp_server:
     image: git.jisoonet.com/el/sftp_server
-    name: ${SFTP_SERVER_SERVICE:-sftp_server}
+    container_name: ${SFTP_SERVER_SERVICE:-sftp_server}
     environment:
       SFTP_USER_PASSWORD: ${SFTP_USER_PASSWORD}
     ports:
