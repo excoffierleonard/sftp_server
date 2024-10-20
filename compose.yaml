@@ -7,12 +7,14 @@ services:
     ports:
       - "${SFTP_SERVER_PORT:-22}:22"
     volumes:
-      - ${SFTP_SERVER_FOLDER:-sftp_server}:/mnt/sftp_server
+      - sftp_server:/mnt/sftp_server
+    networks:
+      - sftp_server
     restart: on-failure:5
 
 volumes:
   sftp_server:
-    name: sftp_server
+    name: ${SFTP_SERVER_VOLUME:-sftp_server}
 
 networks:
   sftp_server:

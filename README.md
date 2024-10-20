@@ -52,7 +52,7 @@ The following environment variables can be set either in a .env file, directly w
 
 - SFTP_USER_PASSWORD: Password for the SFTP user (default: randomly generated if not set)
 - SFTP_SERVER_PORT: The port for the SFTP server (default: 22)
-- SFTP_SERVER_FOLDER: The folder for SFTP storage (default: sftp_server, a docker volume is recommended)
+- SFTP_SERVER_VOLUME: The volume or mount-point for SFTP storage (default: sftp_server, a docker volume is recommended)
 
 If you provide empty or invalid environment variables, the default values will be used.
 
@@ -74,12 +74,14 @@ services:
     ports:
       - "${SFTP_SERVER_PORT:-22}:22"
     volumes:
-      - ${SFTP_SERVER_FOLDER:-sftp_server}:/mnt/sftp_server
+      - sftp_server:/mnt/sftp_server
+    networks:
+      - sftp_server
     restart: on-failure:5
 
 volumes:
   sftp_server:
-    name: sftp_server
+    name: ${SFTP_SERVER_VOLUME:-sftp_server}
 
 networks:
   sftp_server:
@@ -99,7 +101,7 @@ Set up environment variables by creating a `.env` file in the same directory as 
 ```bash
 SFTP_USER_PASSWORD=your_password
 SFTP_SERVER_PORT=22
-SFTP_SERVER_FOLDER=sftp_server
+SFTP_SERVER_VOLUME=sftp_server
 ```
 
 Alternatively, you can hardcode these values directly in [compose.yaml](compose.yaml).
