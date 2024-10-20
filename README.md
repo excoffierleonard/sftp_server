@@ -52,7 +52,9 @@ The following environment variables can be set either in a .env file, directly w
 
 - SFTP_USER_PASSWORD: Password for the SFTP user (default: randomly generated if not set)
 - SFTP_SERVER_PORT: The port for the SFTP server (default: 22)
+- SFTP_SERVER_SERVICE: The name of the service (default: sftp_server)
 - SFTP_SERVER_VOLUME: The volume or mount-point for SFTP storage (default: sftp_server, a docker volume is recommended)
+- SFTP_SERVER_NETWORK: The network for the SFTP server (default: sftp_server)
 
 If you provide empty or invalid environment variables, the default values will be used.
 
@@ -68,7 +70,7 @@ Create a `compose.yaml` file with the following content, you can find a template
 services:
   sftp_server:
     image: git.jisoonet.com/el/sftp_server
-    container_name: sftp_server
+    name: ${SFTP_SERVER_SERVICE:-sftp_server}
     environment:
       SFTP_USER_PASSWORD: ${SFTP_USER_PASSWORD}
     ports:
@@ -85,7 +87,7 @@ volumes:
 
 networks:
   sftp_server:
-    name: sftp_server
+    name: ${SFTP_SERVER_NETWORKS:-sftp_server}
 ```
 
 Alternatively, you can download the [compose.yaml](compose.yaml) file directly from the repository:
@@ -99,9 +101,11 @@ curl -o compose.yaml https://git.jisoonet.com/el/sftp_server/raw/branch/main/com
 Set up environment variables by creating a `.env` file in the same directory as `compose.yaml`. You can use the example below as a guideline:
 
 ```bash
-SFTP_USER_PASSWORD=your_password
+SFTP_USER_PASSWORD=""
 SFTP_SERVER_PORT=22
+SFTP_SERVER_SERVICE=sftp_server
 SFTP_SERVER_VOLUME=sftp_server
+SFTP_SERVER_NETWORK=sftp_server
 ```
 
 Alternatively, you can hardcode these values directly in [compose.yaml](compose.yaml).
@@ -128,7 +132,7 @@ docker network create sftp_server
 docker run \
   -d \
   --name sftp_server \
-  -e SFTP_USER_PASSWORD=YOUR_PASSWORD \
+  -e SFTP_USER_PASSWORD="" \
   -p 22:22 \
   -v sftp_server:/mnt/sftp_server \
   --net=sftp_server \
