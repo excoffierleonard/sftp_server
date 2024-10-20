@@ -14,9 +14,10 @@ RUN mkdir -p /run/sshd
 # Create sftp_user without password
 RUN useradd -m sftp_user
 
-# Set the appropriate permission for /mnt
-RUN chown sftp_user:sftp_user /mnt && \
-    chmod 700 /mnt
+# Set the appropriate permission for /mnt/sftp_server
+RUN mkdir -p /mnt/sftp_server && \
+    chown sftp_user:sftp_user /mnt/sftp_server && \
+    chmod 700 /mnt/sftp_server
 
 # Update sshd_config to allow only SFTP
 RUN echo "Match User sftp_user" >> /etc/ssh/sshd_config && \
