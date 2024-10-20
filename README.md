@@ -74,7 +74,7 @@ services:
     ports:
       - "${SFTP_SERVER_PORT:-22}:22"
     volumes:
-      - sftp_server:/mnt/sftp_server
+      - sftp_server:/mnt
     networks:
       - sftp_server
     restart: on-failure:5
@@ -130,14 +130,14 @@ docker run \
   --name sftp_server \
   -e SFTP_USER_PASSWORD=YOUR_PASSWORD \
   -p 22:22 \
-  -v sftp_server:/mnt/sftp_server \
+  -v sftp_server:/mnt \
   --net=sftp_server \
   git.jisoonet.com/el/sftp_server
 ```
 
 ## Volume
 
-The container exposes a docker volume at `/mnt/sftp_server`. This directory is the root directory of the server. You can mount this volume to a local directory on your host machine to access the files, or to a docker volume for persistent storage.
+The container exposes a docker volume at `/mnt`. This directory is the root directory of the server. You can mount this volume to a local directory on your host machine to access the files, or to a docker volume for persistent storage.
 
 ## Ports
 
