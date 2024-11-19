@@ -1,8 +1,8 @@
 # SFTP Server
 
-![SFTP Server Logo](sftp_server.png)
-
 This Docker image provides a simple and secure way to run an SFTP Server.
+
+![SFTP Server Logo](sftp_server.png)
 
 ## Table of Contents
 
