@@ -4,9 +4,9 @@ FROM debian:stable-slim
 ENV SFTP_USER_PASSWORD=""
 
 # Install OpenSSH server
-RUN apt-get update && \
-    apt-get install -y openssh-server openssl && \
-    apt-get clean
+RUN apt update && \
+    apt install -y openssh-server openssl && \
+    apt clean
 
 # Create the necessary directory for privilege separation
 RUN mkdir -p /run/sshd

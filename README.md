@@ -30,7 +30,7 @@ This Docker image provides a simple and secure way to run an SFTP Server.
 Execute the following command to download the `compose.yaml` file and start the SFTP server using Docker Compose, useful if you don't want to think about the configuration.
 
 ```bash
-curl -o compose.yaml https://git.jisoonet.com/el/sftp_server/raw/branch/main/compose.yaml && docker compose up -d
+curl -o compose.yaml https://raw.githubusercontent.com/excoffierleonard/sftp_server/refs/heads/main/compose.yaml && docker compose up -d
 ```
 
 ## Project Structure
@@ -69,7 +69,10 @@ Create a `compose.yaml` file with the following content, you can find a template
 ```yaml
 services:
   sftp_server:
-    image: git.jisoonet.com/el/sftp_server
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: ghcr.io/excoffierleonard/sftp_server
     container_name: ${SFTP_SERVER_SERVICE:-sftp_server}
     environment:
       SFTP_USER_PASSWORD: ${SFTP_USER_PASSWORD}
@@ -93,7 +96,7 @@ networks:
 Alternatively, you can download the [compose.yaml](compose.yaml) file directly from the repository:
 
 ```bash
-curl -o compose.yaml https://git.jisoonet.com/el/sftp_server/raw/branch/main/compose.yaml
+curl -o compose.yaml https://raw.githubusercontent.com/excoffierleonard/sftp_server/refs/heads/main/compose.yaml
 ```
 
 2. **Create a `.env` File (Optional):**
@@ -136,7 +139,7 @@ docker run \
   -p 22:22 \
   -v sftp_server:/mnt/sftp_server \
   --net=sftp_server \
-  git.jisoonet.com/el/sftp_server
+  ghcr.io/excoffierleonard/sftp_server
 ```
 
 ## Volume
@@ -154,9 +157,9 @@ Future updates may include the option to modify the `sshd_config` file.
 ## Building the Image Locally
 
 ```bash
-git clone https://git.jisoonet.com/el/sftp_server.git && \
+git clone https://github.com/excoffierleonard/sftp_server.git && \
 cd sftp_server && \
-docker build -t sftp_server .
+docker compose build
 ```
 
 ## Contributing
