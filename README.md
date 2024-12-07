@@ -104,7 +104,7 @@ curl -o compose.yaml https://raw.githubusercontent.com/excoffierleonard/sftp_ser
 Set up environment variables by creating a `.env` file in the same directory as `compose.yaml`. You can use the example below as a guideline:
 
 ```bash
-SFTP_USER_PASSWORD=""
+_PASSWORD=""
 SFTP_SERVER_PORT=22
 SFTP_SERVER_SERVICE=sftp_server
 SFTP_SERVER_VOLUME=sftp_server
@@ -135,7 +135,7 @@ docker network create sftp_server
 docker run \
   -d \
   --name sftp_server \
-  -e SFTP_USER_PASSWORD="" \
+  -e _PASSWORD="" \
   -p 22:22 \
   -v sftp_server:/mnt/sftp_server \
   --net=sftp_server \
@@ -149,6 +149,10 @@ The container exposes a docker volume at `/mnt/sftp_server`. This directory is t
 ## Ports
 
 The container exposes port 22 by default, which is the default port for SFTP servers. You are free to change it if you need multiple SFTP servers.
+
+## User
+
+You can connect to the server using the username: `sftp_user`.
 
 ## Customization
 
